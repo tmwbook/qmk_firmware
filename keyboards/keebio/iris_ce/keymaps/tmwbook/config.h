@@ -1,0 +1,4 @@
+// #define RGBLIGHT_LAYERS
+#define TAPPING_TERM 100
+// #define RGBLIGHT_LED_COUNT 6
+
