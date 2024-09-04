@@ -20,22 +20,18 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_MIN_UNDR] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, KC_UNDS),
 };
 
-/* const rgblight_segment_t PROGMEM media_layer_light[] = RGBLIGHT_LAYER_SEGMENTS(
-    { 1, 5, HSV_BLUE }
-);
-
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    media_layer_light
-);
-
-void keyboard_post_init_user(void){
-    rgblight_layers = my_rgb_layers;
+bool rgb_matrix_indicators_user(void){
+    // could loop through until we find the specific key we need
+    // by using keymap_key_to_keycode(layer, {col,row})
+    #ifdef RGB_MATRIX_ENABLE
+    switch (biton32(layer_state)) {
+        case _ADJUST:
+            rgb_matrix_set_color(20, 0xFF, 0xFF, 0xFF);
+            break;
+    }
+    #endif
+    return true;
 }
-
-layer_state_t layer_state_set_user(layer_state_t state){
-    rgblight_set_layer_state(0, layer_state_cmp(state, _ADJUST));
-    return state;
-} */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -93,4 +89,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     _______, _______, _______,                   _______, _______, _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   )
+    // TODO: define gaming layer. Needs layer toggle to, and then a layer clear(?) to go back to the base layer
 };
